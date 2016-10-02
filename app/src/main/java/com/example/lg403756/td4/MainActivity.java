@@ -13,57 +13,60 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NumperPicker.OnActionListener {
+
+    ViewPager maViewPager;
+    ExamplePagerAdapter adapter;
+    int mData = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        adapter = new ExamplePagerAdapter(getSupportFragmentManager());
+        maViewPager = (ViewPager) findViewById(R.id.pager);
+        maViewPager.setAdapter(adapter);
 
-        ExamplePagerAdapter  mExamplePagerAdapter = new ExamplePagerAdapter(getSupportFragmentManager());
-
-        final ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mExamplePagerAdapter);
-        mViewPager.setOnPageChangeListener(
+        maViewPager.setOnPageChangeListener(
                 new ViewPager.SimpleOnPageChangeListener() {
                     @Override
                     public void onPageSelected(int position) {
-                        // When swiping between pages, select the
-                        // corresponding tab.
-                        getActionBar().setSelectedNavigationItem(position);
+                        getSupportActionBar().setSelectedNavigationItem(position);
                     }
                 });
 
-        // Create a tab listener that is called when the user changes tabs.
-        final ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // show the given tab
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // hide the given tab
-            }
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // probably ignore this event
-            }
-
-
-
-
-        };
-        final ActionBar actionBar = getSupportActionBar();
-        // Specify that tabs should be displayed in the action bar.
+        final android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         actionBar.addTab(
                 actionBar.newTab()
-                        .setText("Text")
+                        .setText("Nombre")
                         .setTabListener(tabListener));
         actionBar.addTab(
                 actionBar.newTab()
-                        .setText("Num")
+                        .setText("Texte")
                         .setTabListener(tabListener));
+    }
 
+    android.support.v7.app.ActionBar.TabListener tabListener = new android.support.v7.app.ActionBar.TabListener() {
+        @Override
+        public void onTabSelected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+            maViewPager.setCurrentItem(tab.getPosition());
+        }
+
+        @Override
+        public void onTabUnselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+
+        }
+
+        @Override
+        public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+
+        }
+    };
+
+    @Override
+    public void onAction(int d) {
 
     }
 }

@@ -15,32 +15,36 @@ public class MyFragment extends Fragment{
 
     public MyFragment() {}
 
-    public static MyFragment newInstance (NumberPicker np){
+    /*public static MyFragment newInstance (NumberPicker np){
 
         MyFragment MyF = new MyFragment();
         return MyF;
-    }
+    }*/
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.my_fragment, container, false);
-        NumberPicker n = ((NumberPicker)v.findViewById(R.id.numberPicker));
-        n.setMinValue(0);
-        n.setMaxValue(100);
+        //NumberPicker n = ((NumberPicker)v.findViewById(R.id.numberPicker));
+       // n.setMinValue(0);
+        //n.setMaxValue(100);
 
-        n.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        /*n.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 mListener.onAction(newVal);
             }
-        });
+        });*/
 
         return v;
     }
+
+
     public interface OnActionListener {
         public void onAction(int d);
     }
-    OnActionListener mListener;
 
+    OnActionListener mListener;
+    /*
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -49,5 +53,5 @@ public class MyFragment extends Fragment{
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()+ " must implement OnActionListener");
         }
-    }
+    }*/
 }
